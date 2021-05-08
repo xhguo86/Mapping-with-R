@@ -26,7 +26,7 @@ library(magrittr)
 library(ggspatial)
 
 # load data 
-setwd("C:\\R files")
+#setwd("C:\\R files")
 
 library(ggplot2)
 library(tidyverse)
