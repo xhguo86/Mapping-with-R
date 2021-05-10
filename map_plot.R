@@ -18,7 +18,7 @@ library(DT)
 # load library
 library(rworldmap)
 library("ggplot2")
-theme_set(theme_bw())
+#theme_set(theme_bw())
 library("sf")
 library("rnaturalearth")
 library("rnaturalearthdata")
@@ -26,7 +26,7 @@ library(magrittr)
 library(ggspatial)
 
 # load data 
-#setwd("C:\\R files")
+setwd("C:\\R files")
 
 library(ggplot2)
 library(tidyverse)
@@ -34,55 +34,49 @@ library(RColorBrewer)
 library(ggpubr)
 
 #txt, tab sep
-data<-read.table("map data.txt",header=T,dec=",")
+data<-read.table("map_data.txt",header=T,dec=",")
 attach(data)
 str(data)
 data$latitude <- as.numeric(data$latitude)
 data$longitude <- as.numeric(data$longitude)
-data$design  <- as.factor(data$design) 
+data$Design  <- as.factor(data$Design) 
 world <- ne_countries(scale = "medium", returnclass = "sf")
 class(world)
 
 #cbp_1 <- c("azure4", "lightcoral","red","firebrick4")
-
+library(cowplot)
+theme_set(theme_gray())
 # gene world map
-worldmap <- ggplot(data = world) +
-  geom_sf(color = "lightgrey", fill = "grey") +
+ggplot(data = world) +
+  geom_sf(color = gray(0.8), fill = "grey") +
   xlab("Longitude") + ylab("Latitude") +
-  ggtitle("World map of ...xxx")+ 
+  #theme(plot.title = element_text(hjust = -2, vjust=5.12))+
   #annotation_scale(location = "bl", width_hint = 0.5) +
   #annotation_north_arrow(location = "bl", which_north = "true", pad_x = unit(0.75, "in"), 
   #      pad_y = unit(0.5, "in"), style = north_arrow_fancy_orienteering) +
-  coord_sf(xlim = c(-140, 170), ylim = c(-75, 90), expand = FALSE)+ 
+  coord_sf(xlim = c(-140, 170), ylim = c(-70, 90), expand = FALSE)+ 
   theme(panel.grid.major = element_line(
-        color = gray(0.1), size = 0.1,
+        color = gray(0.5), size = 0.05,
         linetype = "dashed"), 
         panel.background = element_rect(fill = "white"))+
-  theme_bw()
+  geom_point(data = data, mapping = aes(x = longitude, y = latitude,color =Design), 
+             #color = cbp_1,
+             alpha = 1, size=1.2)+
+  scale_color_manual(values=c(NC="blue", ND="green",  NR="orange", NW="red"))  +
+  theme(legend.text=element_text(size=9)) +
+  #ggtitle(" of the analysed samples and their geographic distributions")+ 
+  #theme(plot.title = element_text(hjust = 5))+
+  theme_bw(base_size=9)
+  #draw_text("Unemployment in USA between 1967 and 2007", 
+  #                                 x = 80, y = 90, hjust = 1, vjust = 1,
+   #                                size = 9)
 # add points
 # plot data on world map
-worldmap+
+#worldmap+
 # add points
-  geom_point(data = data, mapping = aes(x = longitude, y = latitude,color =design), 
-             #color = cbp_1,
-             alpha = 1, size=1)+
-  scale_color_manual(values=c(NC="green", ND="orange",  NR="yellow", NW="red"))
-ggsave("map_1.png", width = 12, height = 9, dpi = 1200)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ggsave("map_1.tiff", width = 9, height = 6, dpi = 600)
 
 
 
