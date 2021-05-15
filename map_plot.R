@@ -82,7 +82,7 @@ ggplot(data = world) +
 # add points
 
 
-ggsave("map_1.tiff", width = 9, height = 6, dpi = 600)
+ggsave("Figure 1.jpg", width = 8, height = 6, dpi = 1200)
 
 
 
