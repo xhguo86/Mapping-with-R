@@ -54,7 +54,7 @@ ggplot(data = world) +
   #annotation_scale(location = "bl", width_hint = 0.5) +
   #annotation_north_arrow(location = "bl", which_north = "true", pad_x = unit(0.75, "in"), 
   #      pad_y = unit(0.5, "in"), style = north_arrow_fancy_orienteering) +
-  coord_sf(xlim = c(-150, 170), ylim = c(-70, 90), expand = FALSE)+ 
+  coord_sf(xlim = c(-180, 180), ylim = c(-70, 90), expand = FALSE)+ 
   theme(panel.grid.major = element_line(
         color = gray(0.5), size = 0.05,
         linetype = "dashed"), 
@@ -62,13 +62,13 @@ ggplot(data = world) +
   geom_point(data = data, mapping = aes(x = longitude, y = latitude,color =Design), 
              #color = cbp_1,
              alpha = 1, size=1.2)+
-  scale_color_manual(values=c(NC="blue", ND="green",  NR="orange", NW="red"))  +
+  scale_color_manual(values=c(NxC="blue", NxD="green",  NxP="orange", NxW="red"))  +
   theme(legend.text=element_text(size=9)) +
   #ggtitle(" of the analysed samples and their geographic distributions")+ 
   #theme(plot.title = element_text(hjust = 5))+
   theme_bw(base_size=9) + 
   theme(
-    legend.position = c(.015, .02),
+    legend.position = c(.02, .02),
     legend.justification = c("left", "bottom"),
     legend.box.just = "left",
     legend.margin = margin(1, 1, 1, 1)
